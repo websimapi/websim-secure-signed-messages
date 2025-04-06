@@ -93,6 +93,28 @@
             font-style: italic;
             color: #666;
         }
+        .key-input-container {
+            position: relative;
+            margin-bottom: 10px;
+        }
+        .file-upload {
+            margin-top: 8px;
+        }
+        .file-upload-label {
+            display: inline-block;
+            padding: 6px 12px;
+            background-color: #e9ecef;
+            color: #495057;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        .file-upload-label:hover {
+            background-color: #dde2e6;
+        }
+        input[type="file"] {
+            color: transparent;
+        }
     </style>
 </head>
 <body>
@@ -102,7 +124,13 @@
         <div class="message-form">
             <h3>Post a New Message</h3>
             <textarea id="messageInput" placeholder="Write your message here..."></textarea>
-            <textarea id="privateKeyInput" class="key-input" placeholder="Paste your private key here (PEM format, including BEGIN/END lines)"></textarea>
+            <div class="key-input-container">
+                <textarea id="privateKeyInput" class="key-input" placeholder="Paste your private key here (PEM format, including BEGIN/END lines)"></textarea>
+                <div class="file-upload">
+                    <label for="keyFileInput" class="file-upload-label">Or upload key file</label>
+                    <input type="file" id="keyFileInput" accept=".pem" />
+                </div>
+            </div>
             <button id="signAndPostBtn">Sign & Post Message</button>
             <div id="statusMessage" class="text-center"></div>
         </div>
@@ -125,4 +153,3 @@
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"4c6229722a6346bc8eb5cb0e5eae5d41","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
-

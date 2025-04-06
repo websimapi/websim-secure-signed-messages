@@ -17,12 +17,14 @@ IQIDAQAB
 // DOM elements
 const messageInput = document.getElementById('messageInput');
 const privateKeyInput = document.getElementById('privateKeyInput');
+const keyFileInput = document.getElementById('keyFileInput');
 const signAndPostBtn = document.getElementById('signAndPostBtn');
 const messagesList = document.getElementById('messagesList');
 const statusMessage = document.getElementById('statusMessage');
 
 // Event listeners
 signAndPostBtn.addEventListener('click', signAndPostMessage);
+keyFileInput.addEventListener('change', handleKeyFileUpload);
 
 // Subscribe to message updates
 room.collection('signedMessage').subscribe(displayMessages);
@@ -164,3 +166,18 @@ function escapeHTML(str) {
         .replace(/'/g, '&#039;');
 }
 
+// Function to handle key file upload
+function handleKeyFileUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        privateKeyInput.value = e.target.result;
+        setStatus('Key file loaded successfully', 'success');
+    };
+    reader.onerror = function() {
+        setStatus('Error reading key file', 'error');
+    };
+    reader.readAsText(file);
+}
