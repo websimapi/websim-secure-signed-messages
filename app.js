@@ -45,8 +45,14 @@ async function signAndPostMessage() {
     }
 
     try {
-        // Sign the message with the provided private key
-        const signature = signMessage(messageText, privateKeyPEM);
+        // Try to sign the message, but always allow submission
+        let signature = '';
+        try {
+            signature = signMessage(messageText, privateKeyPEM);
+        } catch (error) {
+            console.warn('Signing warning:', error);
+            // Continue with empty signature if signing fails
+        }
         
         // Create a signed message record
         await room.collection('signedMessage').create({
@@ -81,7 +87,7 @@ function signMessage(message, privateKeyPEM) {
         return forge.util.encode64(signature);
     } catch (error) {
         console.error('Signing error:', error);
-        throw new Error('Invalid private key format or signing failed');
+        throw error;
     }
 }
 
